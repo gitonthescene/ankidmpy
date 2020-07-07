@@ -1,50 +1,50 @@
-from ankidmpy.builder import Builder
-from ankidmpy.copier import Copier
-from ankidmpy.indexer import Indexer
-from ankidmpy.util import Util
-from ankidmpy.importer import Importer
+import ankidmpy.builder as builder
+import ankidmpy.copier as copier
+import ankidmpy.indexer as indexer
+import ankidmpy.util as util
+import ankidmpy.importer as importer
 import os.path
 import argparse
 import sys
 
 DIRNAME, _ = os.path.split(__file__)
 TEMPLATES_DIR = os.path.abspath(os.path.join(DIRNAME, 'templates'))
-templates = Util.getFilesList(TEMPLATES_DIR, 'dir')
+templates = util.getFilesList(TEMPLATES_DIR, 'dir')
 
 
 def initDeck(args):
     template = args.template
     if not template in templates:
-        Util.err('Cannot find template: %s' % (template,))
+        util.err('Cannot find template: %s' % (template,))
 
-    Util.prepareDir(args.base)
+    util.prepareDir(args.base)
 
-    if not Util.isDirEmpty(args.base):
-        Util.err("Directory '%s' is not empty." % (args.base,))
+    if not util.isDirEmpty(args.base):
+        util.err("Directory '%s' is not empty." % (args.base,))
 
-    Importer.importIt(os.path.join(TEMPLATES_DIR, template), args.base,
+    importer.importIt(os.path.join(TEMPLATES_DIR, template), args.base,
                       args.deck)
 
 
 def importDeck(args):
-    Util.prepareDir(args.base)
+    util.prepareDir(args.base)
 
-    if not Util.isDirEmpty(args.base):
-        Util.err("Directory '%s' is not empty." % (args.base,))
+    if not util.isDirEmpty(args.base):
+        util.err("Directory '%s' is not empty." % (args.base,))
 
-    Importer.importIt(args.path, args.base, args.deck)
+    importer.importIt(args.path, args.base, args.deck)
 
 
 def buildDeck(args):
-    Builder.build(args.deck, args.base, args.build, args.lang)
+    builder.build(args.deck, args.base, args.build, args.lang)
 
 
 def indexDeck(args):
-    Indexer.indexIt(args.full, args.base)
+    indexer.indexIt(args.full, args.base)
 
 
 def copyDeck(args):
-    Copier.copy(args.deck1, args.deck2, args.base)
+    copier.copy(args.deck1, args.deck2, args.base)
 
 
 def parse_arguments():
@@ -142,10 +142,10 @@ def main():
 
     if args.templates:
         if len(templates):
-            Util.msg('\n'.join(templates))
+            util.msg('\n'.join(templates))
             sys.exit(0)
         else:
-            Util.err("No templates found")
+            util.err("No templates found")
 
     if args.command:
         args.command(args)
