@@ -54,3 +54,19 @@ optional arguments:
                provided, then the original deck/template name will be used.
 $
 ```
+
+## Building
+**ankidmpy** is currently written in Pure `Python` with no dependencies.  I've only tried it with Python3.7 so far but it may work in earlier versions.
+
+You can run **ankidmpy** with `python -m ankidmpy` by pointing your `PYTHONPATH` at the `src` directory or you can use [poetry](https://python-poetry.org/docs/) to build a wheel distribution like so:
+
+```sh
+$ poetry install
+$ poetry build
+```
+Once you run `poetry install` you can also run **ankidmpy** using the **poetry** script like so:
+
+```sh
+$ poetry run anki-dm --help
+```
+See the **poetry** documentation for more details.
