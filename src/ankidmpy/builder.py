@@ -62,7 +62,7 @@ def build(decks, src_dir, build_dir, lang):
             for template in deck_build['templates']:
                 template_filename = util.ensureFilename(template)
                 if not template_filename in glbals['templates']:
-                    err("Field template '%s% not found." % (template,))
+                    util.err("Field template '%s% not found." % (template,))
                 deck_templates_info.append(dict(name=template, ord=k))
                 deck_templates_info[-1].update(
                     glbals['templates'][template_filename])
